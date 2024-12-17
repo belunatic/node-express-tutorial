@@ -1,9 +1,14 @@
 const express = require("express");
+const serverless = require("serverless-http");
 const app = express();
+const router = express.Router();
 
 //to access the JSON formatted data from a request body
 //without this the request.body would be undefined
 app.use(express.json());
+
+app.use("/.netlify/functions/index", router);
+module.exports.handler = serverless(app);
 
 let notes = [
 	{
